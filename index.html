@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Alle Apps von Dabvud an einem Ort.">
+  <meta name="theme-color" content="#f8f9fa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#15171c" media="(prefers-color-scheme: dark)">
+  <title>Dabvud – Apps</title>
+  <link rel="icon" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Dabvud</h1>
+      <p>Meine Apps</p>
+    </header>
+    <main id="apps" class="apps">
+      <noscript>
+        <a class="app" href="/impostor/">
+          <img class="app-icon" src="icons/impostor.png" alt="" width="64" height="64">
+          <h2 class="app-name">Impostor</h2>
+          <p class="app-text">Partyspiel mit Fußballern – ein Handy, reihum.</p>
+          <p class="app-meta">Web-App · öffnen</p>
+        </a>
+      </noscript>
+    </main>
+    <footer>
+      <p><a href="https://github.com/Dabvud">Dabvud auf GitHub</a></p>
+    </footer>
+  </div>
+  <script>
+    const APPS = [
+      {
+        name: "Impostor",
+        text: "Partyspiel mit Fußballern – ein Handy, reihum.",
+        icon: "icons/impostor.png",
+        link: "/impostor/",
+        art: "Web-App",
+      },
+    ];
+
+    function renderApps(apps) {
+      const container = document.getElementById("apps");
+
+      for (const app of apps) {
+        const card = document.createElement("a");
+        card.className = "app";
+        card.href = app.link;
+
+        const icon = document.createElement("img");
+        icon.className = "app-icon";
+        icon.src = app.icon;
+        icon.alt = "";
+        icon.width = 64;
+        icon.height = 64;
+
+        const name = document.createElement("h2");
+        name.className = "app-name";
+        name.textContent = app.name;
+
+        const text = document.createElement("p");
+        text.className = "app-text";
+        text.textContent = app.text;
+
+        const meta = document.createElement("p");
+        meta.className = "app-meta";
+        meta.textContent = app.art + " · öffnen";
+
+        card.append(icon, name, text, meta);
+        container.append(card);
+      }
+    }
+
+    renderApps(APPS);
+  </script>
+</body>
+</html>
