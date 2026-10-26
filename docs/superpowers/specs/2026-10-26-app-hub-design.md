@@ -36,7 +36,7 @@ zeigt weiterhin direkt auf das Spiel.
 - Statische Seite ohne Build und ohne npm-Abhängigkeiten.
 - GitHub Pages veröffentlicht direkt aus Branch `main`, Ordner `/` (Root),
   ohne GitHub Actions.
-- Lokaler Ordner: `C:\Users\trill\Desktop\dabvud.github.io`.
+- Lokaler Ordner: `Desktop\dabvud.github.io`.
 
 ### Dateien
 
