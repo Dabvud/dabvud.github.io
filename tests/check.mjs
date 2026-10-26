@@ -9,6 +9,17 @@ function check(condition, message) {
   if (!condition) errors.push(message);
 }
 
+// Windows ignoriert Groß-/Kleinschreibung, GitHub Pages nicht: jedes Segment exakt vergleichen
+function fileExistsExact(relPath) {
+  let dir = root;
+  const parts = relPath.split('/');
+  for (const part of parts) {
+    if (!part || !fs.readdirSync(dir).includes(part)) return false;
+    dir = path.join(dir, part);
+  }
+  return fs.statSync(dir).isFile();
+}
+
 function finish() {
   if (errors.length > 0) {
     console.error(errors.join('\n'));
@@ -66,7 +77,7 @@ function main() {
         names.add(app.name);
       }
       check(typeof app.icon === 'string' && app.icon.trim().length > 0
-        && fs.existsSync(path.join(root, app.icon)), 'icon existiert: ' + label);
+        && fileExistsExact(app.icon), 'icon existiert: ' + label);
       check(typeof app.link === 'string' && /^(?:\/|https:\/\/)/.test(app.link),
         'link: ' + label);
     }
