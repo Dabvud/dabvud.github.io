@@ -98,6 +98,18 @@ function main() {
   check(!/<script\b[^>]*\bsrc\s*=/i.test(html), 'Meta: keine externen Scripts');
   check(!/<link\b[^>]*\bhref\s*=\s*["']?https?:/i.test(html),
     'Meta: keine externen Links auf Ressourcen');
+
+  check(Array.isArray(apps) && apps.some((app) => app && app.name === 'The Next Chapter'
+    && app.link === '/thenextchapter/' && app.icon === 'icons/thenextchapter.png'), 'The-Next-Chapter-Eintrag');
+  const noscript = [...html.matchAll(/<noscript\b[^>]*>([\s\S]*?)<\/noscript>/gi)].map((b) => b[1]).join('');
+  for (const link of ['/impostor/', '/thenextchapter/']) {
+    check(noscript.includes('href="' + link + '"') && noscript.includes('href="' + link + '?installieren"'),
+      'noscript: Spielen und Aufs Handy für ' + link);
+  }
+  check(/app\.link \+ "\?installieren"/.test(html), 'Kachel: Link Aufs Handy');
+  check(html.includes('"Spielen"') && html.includes('Aufs Handy'), 'Kachel: zwei Knöpfe');
+  check(/<button\b[^>]*\bid="share-open"/i.test(html), 'Teilen-Knopf');
+  check(/<dialog\b[^>]*\bid="share-dialog"[\s\S]*?<svg\b[\s\S]*?<\/dialog>/i.test(html), 'Teilen: QR-Code im Dialog');
 }
 
 main();
